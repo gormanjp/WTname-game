@@ -23,9 +23,19 @@ class App extends Component {
   }
 
   handleSearch(input, nameInfo) {
-    const searchResults = nameInfo.filter((name) => {
-      return `${name.firstName} ${name.lastName}`.toLowerCase().includes(input);
-    });
+    let searchResults;
+    if(input.slice(0,4).toLowerCase() === 'job:'){
+      searchResults = nameInfo.filter((person) => {
+        const jobQuery = input.slice(4).replace(/^\s/g, '').toLowerCase(); //ignore leading space and 'job:'
+        const jobTitle = person.jobTitle ? person.jobTitle.toLowerCase() : '';
+        return jobTitle.includes(jobQuery);
+      })
+    }else {
+      searchResults = nameInfo.filter((person) => {
+        const fullName = `${person.firstName} ${person.lastName}`.toLowerCase();
+        return fullName.includes(input.toLowerCase());
+      });
+    }
     this.setState({
       searchNames: searchResults
     })
@@ -35,27 +45,28 @@ class App extends Component {
     const nameInfo = this.state.searchNames || this.state.allNames;
     if(!nameInfo) {
       return <div> Loading... </div>;
-    } else {
-
-      return(
-        <div className="container test">
-          <div>This is the real deal name game</div>
-          <Search search={this.handleSearch} nameInfo={this.state.allNames}/>
-          <div className="row">
-            {nameInfo.map(name => {
-              return (
-                <NameCard
-                  key={name.id}
-                  firstName={name.firstName}
-                  lastName={name.lastName}
-                  image={name.headshot.url}
-                />
-              )
-            })}
-          </div>
-        </div>
-      )
     }
+    return(
+      <div className="container test">
+        <div className="center">
+          <h1 className="raleway-big">MEMORY</h1>
+          <h4 className="raleway-small">Quiz Yourself. Search. Click to Flip.</h4>
+        </div>
+        <Search search={this.handleSearch} nameInfo={this.state.allNames}/>
+        <div className="row">
+          {nameInfo.map(name => {
+            return (
+              <NameCard
+                key={name.id}
+                firstName={name.firstName}
+                lastName={name.lastName}
+                image={name.headshot.url}
+              />
+            )
+          })}
+        </div>
+      </div>
+    )
   }
 }
 
