@@ -18288,6 +18288,14 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     });
   }
 
+  handleSearch(input, nameInfo) {
+    nameInfo.find(name => {
+      const newArray = `${name.firstName} ${name.lastName}`.includes(input);
+      console.log(newArray);
+      return;
+    });
+  }
+
   render() {
     if (!this.state.nameInfo) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -18304,7 +18312,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         null,
         'This is the real deal name game'
       ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__search__["a" /* Search */], null),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__search__["a" /* Search */], { search: this.handleSearch, nameInfo: this.state.nameInfo }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'row' },
@@ -18354,13 +18362,19 @@ const NameCard = props => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _this = this;
 
 
-const Search = () => {
+
+const Search = props => {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'div',
-    null,
-    'Hey'
+    "div",
+    { className: "container" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+      className: "input",
+      type: "text",
+      onChange: input => props.search(input.target.value, _this.props.nameInfo)
+    })
   );
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = Search;

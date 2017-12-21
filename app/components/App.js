@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {};
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   // fetch all of the names from the WT profile api once the main component mounts
@@ -16,33 +17,45 @@ class App extends Component {
       .then(names => names.json())
       .then(names => {
         this.setState({
-          nameInfo: names
+          allNames: names
         })
       })
-  };
+  }
+
+  handleSearch(input, nameInfo) {
+    const searchResults = nameInfo.filter((name) => {
+      return `${name.firstName} ${name.lastName}`.toLowerCase().includes(input);
+    });
+    this.setState({
+      searchNames: searchResults
+    })
+  }
 
   render(){
-    if(!this.state.nameInfo) {
+    const nameInfo = this.state.searchNames || this.state.allNames;
+    if(!nameInfo) {
       return <div> Loading... </div>;
-    }
-    return(
-      <div className="container test">
-        <div>This is the real deal name game</div>
-        <Search />
-        <div className="row">
-          {this.state.nameInfo.map(name => {
-            return (
-              <NameCard
-                key={name.id}
-                firstName={name.firstName}
-                lastName={name.lastName}
-                image={name.headshot.url}
-              />
-            )
-          })}
+    } else {
+
+      return(
+        <div className="container test">
+          <div>This is the real deal name game</div>
+          <Search search={this.handleSearch} nameInfo={this.state.allNames}/>
+          <div className="row">
+            {nameInfo.map(name => {
+              return (
+                <NameCard
+                  key={name.id}
+                  firstName={name.firstName}
+                  lastName={name.lastName}
+                  image={name.headshot.url}
+                />
+              )
+            })}
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
 
