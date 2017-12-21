@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { NameCard } from './NameCard';
+import { NameCard } from './nameCard';
+import { Search } from './search';
 
 const nameApi = 'https://willowtreeapps.com/api/v1.0/profiles/';
 
@@ -25,8 +26,9 @@ class App extends Component {
       return <div> Loading... </div>;
     }
     return(
-      <div className="container">
+      <div className="container test">
         <div>This is the real deal name game</div>
+        <Search />
         <div className="row">
           {this.state.nameInfo.map(name => {
             return (

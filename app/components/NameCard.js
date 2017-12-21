@@ -8,8 +8,9 @@ export const NameCard = (props) => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         height: '200px',
-        width: '100px',
+        minWidth: '200px',
         margin: '10px'
+        // !! need to account for XS devices
       }}>
     </div>
   )
