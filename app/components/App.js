@@ -9,7 +9,7 @@ class App extends Component {
     this.state = {};
   }
 
-  // fetch all of the names from the wt profile api once the main component mounts
+  // fetch all of the names from the WT profile api once the main component mounts
   componentDidMount(){
     fetch(nameApi)
       .then(names => names.json())
@@ -25,9 +25,20 @@ class App extends Component {
       return <div> Loading... </div>;
     }
     return(
-      <div>
-        <div className="">This is the real deal name game</div>
-        <NameCard />
+      <div className="container">
+        <div>This is the real deal name game</div>
+        <div className="row">
+          {this.state.nameInfo.map(name => {
+            return (
+              <NameCard
+                key={name.id}
+                firstName={name.firstName}
+                lastName={name.lastName}
+                image={name.headshot.url}
+              />
+            )
+          })}
+        </div>
       </div>
     )
   }
