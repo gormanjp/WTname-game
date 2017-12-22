@@ -11,7 +11,7 @@ class App extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  // fetch all of the names from the WT profile api once the main component mounts
+  // fetch all of the names from the WT profile api once the app component mounts
   componentDidMount(){
     fetch(nameApi)
       .then(names => names.json())
@@ -23,19 +23,12 @@ class App extends Component {
   }
 
   handleSearch(input, nameInfo) {
-    let searchResults;
-    if(input.slice(0,4).toLowerCase() === 'job:'){
-      searchResults = nameInfo.filter((person) => {
-        const jobQuery = input.slice(4).replace(/^\s/g, '').toLowerCase(); //ignore leading space and 'job:'
-        const jobTitle = person.jobTitle ? person.jobTitle.toLowerCase() : '';
-        return jobTitle.includes(jobQuery);
-      })
-    }else {
-      searchResults = nameInfo.filter((person) => {
-        const fullName = `${person.firstName} ${person.lastName}`.toLowerCase();
-        return fullName.includes(input.toLowerCase());
-      });
-    }
+    const searchResults = nameInfo.filter((person) => {
+      const fullName = `${person.firstName} ${person.lastName}`.toLowerCase();
+      const jobTitle = person.jobTitle ? person.jobTitle.toLowerCase() : '';
+      const jobQuery = input.replace(/\s$/g, '').toLowerCase(); //ignore trailing space
+      return fullName.includes(input.toLowerCase()) || jobTitle.includes(jobQuery);
+    });
     this.setState({
       searchNames: searchResults
     })
@@ -47,20 +40,19 @@ class App extends Component {
       return <div> Loading... </div>;
     }
     return(
-      <div className="container test">
+      <div className="container">
         <div className="center">
-          <h1 className="raleway-big">MEMORY</h1>
-          <h4 className="raleway-small">Quiz Yourself. Search. Click to Flip.</h4>
+          <h1 className="raleway-big">FLASH CARDS</h1>
+          <div className="line"/>
+          <h4 className="raleway-small">Search.  Quiz Yourself.  Click to Flip.</h4>
         </div>
         <Search search={this.handleSearch} nameInfo={this.state.allNames}/>
         <div className="row">
-          {nameInfo.map(name => {
+          {nameInfo.map(person => {
             return (
               <NameCard
-                key={name.id}
-                firstName={name.firstName}
-                lastName={name.lastName}
-                image={name.headshot.url}
+                key={person.id}
+                person={person}
               />
             )
           })}

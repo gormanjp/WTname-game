@@ -7,8 +7,8 @@ export const Search = (props) => {
         className="search raleway-small"
         type="text"
         align="middle"
-        placeholder="'Sam' OR 'job: CEO'"
-        onChange={(input) => props.search(input.target.value, props.nameInfo)}
+        placeholder="Search by Name or Job Title"
+        onChange={ (e) => props.search(e.target.value, props.nameInfo) }
       />
     </div>
   )

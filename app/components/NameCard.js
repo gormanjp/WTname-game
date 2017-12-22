@@ -1,17 +1,17 @@
 import React from 'react';
 
 export const NameCard = (props) => {
+  const { id, firstName, lastName, jobTitle } = props.person;
+  const imageUrl = props.person.headshot.url;
   return(
-    <div className="card col-sm-2 col-4"
-      style={{
-        backgroundImage: `url(${props.image}?w=200&h=200)`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        height: '200px',
-        minWidth: '200px',
-        margin: '10px auto'
-        // !! need to account for XS devices
-      }}>
+    <div className="card card-container col-sm-2 col-4" onClick={ () => $(`#${id}`).toggleClass("flipped") }>
+      <div className="card-flip" id={id}>
+        <div className="card face card-front" style={{ backgroundImage: `url(${imageUrl}?w=200&h=200)` }} />
+        <div className="card face card-back">
+          <h4 className="raleway-small center">{firstName} {lastName}</h4>
+          <p className="raleway-small center">{jobTitle}</p>
+        </div>
+      </div>
     </div>
   )
 }
