@@ -3,6 +3,7 @@ import React from 'react';
 export const NameCard = (props) => {
   const { id, firstName, lastName, jobTitle } = props.person;
   const imageUrl = props.person.headshot.url;
+  
   return(
     <div className="card card-container col-sm-2 col-4" onClick={ () => $(`#${id}`).toggleClass("flipped") }>
       <div className="card-flip" id={id}>

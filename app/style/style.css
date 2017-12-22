@@ -81,13 +81,32 @@
 }
 
 /* Search */
+.search-container {
+  text-align: center;
+}
+
 .search {
   height: 45px;
-  width: 40%;
-  margin: 10px 30% 30px;
+  width: 300px;
+  margin: 10px auto 30px;
   border: 1px solid #1cd9c4;
   border-radius: 20px;
   text-align: center;
   font-size: 20px;
   outline: none;
+}
+
+/* Break Points */
+@media only screen and (max-width: 400px) {
+  .raleway-big {
+  	font-size: 30px;
+  }
+
+  .raleway-small {
+  	font-size: 14px;
+  }
+
+  .search {
+    width: 200px;
+  }
 }
