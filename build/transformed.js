@@ -18315,7 +18315,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
       { className: 'container' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'center' },
+        { className: 'center-text' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h1',
           { className: 'raleway-big' },
@@ -18369,14 +18369,14 @@ const NameCard = props => {
         { className: "card face card-back" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "h4",
-          { className: "raleway-small center" },
+          { className: "raleway-small center-text" },
           firstName,
           " ",
           lastName
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "p",
-          { className: "raleway-small center" },
+          { className: "raleway-small center-text" },
           jobTitle
         )
       )

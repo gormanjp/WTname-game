@@ -8,8 +8,8 @@ export const NameCard = (props) => {
       <div className="card-flip" id={id}>
         <div className="card face card-front" style={{ backgroundImage: `url(${imageUrl}?w=200&h=200)` }} />
         <div className="card face card-back">
-          <h4 className="raleway-small center">{firstName} {lastName}</h4>
-          <p className="raleway-small center">{jobTitle}</p>
+          <h4 className="raleway-small center-text">{firstName} {lastName}</h4>
+          <p className="raleway-small center-text">{jobTitle}</p>
         </div>
       </div>
     </div>

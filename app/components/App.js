@@ -41,7 +41,7 @@ class App extends Component {
     }
     return(
       <div className="container">
-        <div className="center">
+        <div className="center-text">
           <h1 className="raleway-big">FLASH CARDS</h1>
           <div className="line"/>
           <h4 className="raleway-small">Search.  Quiz Yourself.  Click to Flip.</h4>
