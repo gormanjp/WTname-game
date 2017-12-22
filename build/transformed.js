@@ -18271,7 +18271,7 @@ module.exports = camelize;
 
 
 
-const nameApi = 'https://willowtreeapps.com/api/v1.0/profiles/';
+const NAME_API = 'https://willowtreeapps.com/api/v1.0/profiles/';
 
 class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   constructor(props) {
@@ -18282,27 +18282,26 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
   // fetch all of the names from the WT profile api once the app component mounts
   componentDidMount() {
-    fetch(nameApi).then(names => names.json()).then(names => {
+    fetch(NAME_API).then(names => names.json()).then(names => {
       this.setState({
         allNames: names
       });
     });
   }
 
-  handleSearch(input, nameInfo) {
-    const searchResults = nameInfo.filter(person => {
+  handleSearch(input) {
+    const { allNames } = this.state;
+    const searchResults = allNames.filter(person => {
       const fullName = `${person.firstName} ${person.lastName}`.toLowerCase();
       const jobTitle = person.jobTitle ? person.jobTitle.toLowerCase() : '';
       const jobQuery = input.replace(/\s$/g, '').toLowerCase(); //ignore trailing space
       return fullName.includes(input.toLowerCase()) || jobTitle.includes(jobQuery);
     });
-    this.setState({
-      searchNames: searchResults
-    });
+    this.setState({ searchResults });
   }
 
   render() {
-    const nameInfo = this.state.searchNames || this.state.allNames;
+    const nameInfo = this.state.searchResults || this.state.allNames;
     if (!nameInfo) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -18310,6 +18309,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         ' Loading... '
       );
     }
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'container' },
@@ -18328,7 +18328,9 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
           'Search.  Quiz Yourself.  Click to Flip.'
         )
       ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__search__["a" /* Search */], { search: this.handleSearch, nameInfo: this.state.allNames }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__search__["a" /* Search */], {
+        search: this.handleSearch
+      }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'row' },
@@ -18357,6 +18359,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 const NameCard = props => {
   const { id, firstName, lastName, jobTitle } = props.person;
   const imageUrl = props.person.headshot.url;
+
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     "div",
     { className: "card card-container col-sm-2 col-4", onClick: () => $(`#${id}`).toggleClass("flipped") },
@@ -18396,15 +18399,16 @@ const NameCard = props => {
 
 
 const Search = props => {
+
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     "div",
-    { className: "container" },
+    { className: "container search-container" },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
       className: "search raleway-small",
       type: "text",
       align: "middle",
       placeholder: "Search by Name or Job Title",
-      onChange: e => props.search(e.target.value, props.nameInfo)
+      onChange: e => props.search(e.target.value)
     })
   );
 };
