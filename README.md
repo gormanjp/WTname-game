@@ -1,7 +1,7 @@
-# WTname-game
+# Willow Tree Flash Cards
 
 Simple app for searching people or quizzing yourself on names.
-Search by name or job title.  Click the picture to see name and job info. 
+Search by name or job title.  Click the picture to see name and job info.
 
 To run:
 1. clone repo onto your local machine
@@ -10,3 +10,4 @@ To run:
 
 Thanks for checking it out!
 Please let me know if you have questions or any feedback!
+-Jamie Gorman
